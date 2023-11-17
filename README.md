@@ -1,6 +1,6 @@
 
 -------------------------------------KONSTRUCTOR BAY--------------------------------------------------------------------------
-Konstructor Bay is a Platform where a person can find or advirtise Construction materials. 
+Konstructor Bay is a Platform where a person can find or advertise Construction materials. 
 
 AUTHORS
 ------
