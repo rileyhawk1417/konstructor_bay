@@ -2,7 +2,7 @@
 """BaseModel class"""
 import uuid
 from sqlalchemy import Column, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from datetime import datetime
 
 time = '%Y-%m-%dT-%H-%M-%.%f'
