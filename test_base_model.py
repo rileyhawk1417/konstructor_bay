@@ -19,5 +19,5 @@ print(obj1.number)
 print(obj1)
 
 dict_test = obj1.to_dict()
-print(dict_test)
+print(f"\n\n{dict_test}")
 
