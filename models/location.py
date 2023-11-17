@@ -3,14 +3,16 @@
 location model
 """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+
 
 class Location(Base, BaseModel):
     """
     location for user, product
     """
     __tablename__ = "location"
-    user_id = Column(Integer, foreignKey('user.id'), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     user = relationship("User", backref="locations", cascade="all, delete-orphan")
     country = Column(String(24), nullable=False)
     county = Column(String(50), nullable=False)
