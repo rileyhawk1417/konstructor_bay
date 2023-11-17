@@ -6,5 +6,5 @@ AUTHORS
 ------
 NAME                   EMAIL                   GITHUB
 
-<Moses Gitonga>  <infosec947@gmail.com>  <https://github.com/mosesgitonga>
+Moses Gitonga  infosec947@gmail.com  <https://github.com/mosesgitonga>
 
