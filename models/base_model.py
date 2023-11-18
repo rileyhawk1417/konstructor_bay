@@ -9,7 +9,7 @@ time = '%Y-%m-%dT-%H-%M-%.%f'
 Base = declarative_base()
 class BaseModel:
     """BaseModel class"""
-    id = Column(String(60), primary_key=True)
+    id = Column(String(100), primary_key=True)
     created_at = Column(DateTime, default=datetime.utcnow())
     updated_at = Column(DateTime, default=datetime.utcnow())
 
@@ -38,6 +38,9 @@ class BaseModel:
     def save(self):
         """updates an instance with current datetime"""
         self.updated_at = datetime.utcnow()
+        models.storage.new(self)
+        models.storage.save()
+
 
     def to_dict(self):
         """returns a dictionary representation of this class"""
@@ -54,4 +57,4 @@ class BaseModel:
         
     def delete(self):
         """delete current instance from storage"""
-        pass
+        models.storage.delete(self)

@@ -3,7 +3,7 @@
 user model
 """
 from sqlalchemy.orm import relationship
-from base_model import BaseModel, Base
+from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, ForeignKey
 
 class User(Base, BaseModel):
@@ -17,5 +17,5 @@ class User(Base, BaseModel):
     email = Column(String(256), nullable=True)
     phone_num = Column(String(20), nullable=False)
     password = Column(String(256), nullable=False)
-    location = relationship("Location", backref="user")
-    location_id = Column(String(256), ForeignKey("location.id"), nullable=False)
+    location_id = Column(String(100), ForeignKey("locations.id"), nullable=False)
+    location = relationship("Location", backref="user_ref", foreign_keys=[location_id])
