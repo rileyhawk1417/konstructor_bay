@@ -4,7 +4,7 @@ from models.supplier import Supplier
 from models.base_model import BaseModel  # Import all other models similarly
 
 # Create an engine to connect to your MySQL database
-engine = create_engine('mysql+pymysql://root@32f748541f8d:Clear@127.0.0.1:3306/mysql')
+engine = create_engine('mysql+pymysql://259961-web-01:Clear@127.0.0.1:3306/mysql')
 
 # Create all tables defined in your models
 BaseModel.metadata.create_all(engine)
