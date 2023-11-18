@@ -11,11 +11,11 @@ class User(Base, BaseModel):
     creating user on table name user
     """
     __tablename__ = "user"
-    firstName = Column(String(18), nullable=False)
-    sec_name = Column(String(18), nullable=False)
-    username = Column(String(25), nullable=False)
+    firstName = Column(String(18), nullable=True)
+    sec_name = Column(String(18), nullable=True)
+    username = Column(String(25), nullable=True)
     email = Column(String(256), nullable=True)
-    phone_num = Column(String(20), nullable=False)
-    password = Column(String(256), nullable=False)
-    location_id = Column(String(100), ForeignKey("locations.id"), nullable=False)
-    location = relationship("Location", backref="user_ref", foreign_keys=[location_id])
+    phone_num = Column(String(20), nullable=True)
+    password = Column(String(256), nullable=True)
+    location_id = Column(String(100), ForeignKey("location.id"), nullable=True)
+    location = relationship("Location", backref="user_ref", foreign_keys=[location_id], cascade="all, delete")

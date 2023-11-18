@@ -9,9 +9,9 @@ time = '%Y-%m-%dT-%H-%M-%.%f'
 Base = declarative_base()
 class BaseModel:
     """BaseModel class"""
-    id = Column(String(100), primary_key=True)
-    created_at = Column(DateTime, default=datetime.utcnow())
-    updated_at = Column(DateTime, default=datetime.utcnow())
+    id = Column(String(100), primary_key=True, default=str(uuid.uuid4()), nullable=True)
+    created_at = Column(DateTime, default=datetime.now())
+    updated_at = Column(DateTime, default=datetime.now())
 
     def __init__(self, *args, **kwargs):
         """initialize the class BaseModel"""

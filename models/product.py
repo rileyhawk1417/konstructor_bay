@@ -11,5 +11,5 @@ class Product(Base, BaseModel):
     description = Column(String(350), nullable=False)
     img_filename = Column(String(256), nullable=False)
     user_id = Column(String(256), ForeignKey('user.id'), nullable=False)
-    location_id = Column(String(256), ForeignKey('locations.id'), nullable=False)
-    user = relationship("User", backref="location")
+    location_id = Column(String(256), ForeignKey('locations.id'), nullable=True)
+    user = relationship("User", backref="location_ref")

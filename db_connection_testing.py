@@ -12,16 +12,32 @@ from models import storage
 from models.engine.db_engine import Db_storage
 import models
 
+
 my_db = Db_storage()
 my_db.reload()
 
-new_user = User(name='Root', email='rootcode947@gmail.com')
+username = 'ks_developers'
+password = ''
+host = 'localhost'
+database = 'ks_dev_db'
+
+
+
+
+new_user = User(firstName='Root', sec_name='shadow', email='rootcode947@gmail.com',
+        username='Mr root', phone_num='0700000000', password='rootcode', location_id='254'    
+        )
+new_location = Location(country='Nairobi')
+engine = create_engine(f"mysql+mysqldb://{username}:{password}@{host}/{database}")
+Session = sessionmaker(bind=engine)
+session = Session()
+
 my_db.new(new_user)
 my_db.save()
 
 #querying all users
-all_users = my_db.all(User)
+all_users = session.query(User).all()
 for user in all_users:
-    print(user.id, user.name, user.email)
+    print(user.email)
 
 my_db.close()

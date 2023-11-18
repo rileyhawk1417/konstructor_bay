@@ -60,22 +60,39 @@ class Db_storage:
 
         self.__session.add(obj)
 
-    def all(self, cls=None):
+    def all(self, cls=None, id=None):
         """
-        retrieves all objs in current database session of a specific class if the class is specified 
-        else 
-        retrieves all obj
+        Query all classes or specific one by ID
         """
-        objs_dict = {}
-        for clss in classes:
-            if clss is None or cls is classes[clss] or cls is clss:
-                objs = self.__session.query(classes[clss]).all()
+        allClasses = [User, Product, Location, Cart, Order]
+        result = {}
 
-                for obj in objs:
-                    key = obj.__class__.__name___ + '.' + obj.id
-                    objs_dict[key] = obj
-        
-        return objs_dict
+        if cls is not None:
+            if id is not None:
+                obj = self.__session.query(cls).get(id)
+                if obj is not None:
+                    ClassName = obj.__class__.__name__
+                    keyName = ClassName + "." + str(obj.id)
+                    result[keyName] = obj
+            else:
+                for obj in self.__session.query(cls).all():
+                    ClassName = obj.__class__.__name__
+                    keyName = ClassName + "." + str(obj.id)
+                    result[keyName] = obj
+        else:
+            for clss in allClasses:
+                if id is not None:
+                    obj = self.__session.query(clss).get(id)
+                    if obj is not None:
+                        ClassName = obj.__class__.__name__
+                        keyName = ClassName + "." + str(obj.id)
+                        result[keyName] = obj
+                else:
+                    for obj in self.__session.query(clss).all():
+                        ClassName = obj.__class__.__name__
+                        keyName = ClassName + "." + str(obj.id)
+                        result[keyName] = obj
+        return result
 
 
     def count(self, cls=None):
