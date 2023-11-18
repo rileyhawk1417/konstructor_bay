@@ -30,3 +30,5 @@ class User(Base):
     email = Column(String)
     password = Column(String)
     user_type = Column(String)
+    
+Base.metadata.create_all(engine)
