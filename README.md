@@ -1,12 +1,14 @@
+-------------------------------------KONSTRUCTOR
+BAY--------------------------------------------------------------------------
+Konstructor Bay is a Platform where a person can find or advertise Construction
+materials.
 
--------------------------------------KONSTRUCTOR BAY--------------------------------------------------------------------------
-Konstructor Bay is a Platform where a person can find or advertise Construction materials. 
+## AUTHORS
 
-AUTHORS
-------
-NAME                   EMAIL                   GITHUB
+NAME EMAIL GITHUB
 
-Moses Gitonga  infosec947@gmail.com  <https://github.com/mosesgitonga>
+Moses Gitonga infosec947@gmail.com <https://github.com/mosesgitonga>
 
 Joseph Kimuchu kimuchukim@gmail.com <https://github.com/KimuchuJr>
 
+Sean Riley Hawkins rileyhawk249@gmail.com <https://github.com/rileyhawk1417>
