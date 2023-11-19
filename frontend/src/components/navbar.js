@@ -7,7 +7,7 @@ import Link from "next/link";
  */
 function ProfileDropDown() {
   return (
-    <div className="dropdown dropdown-end flex-[1] flex  justify-end pr-4">
+    <div className="dropdown dropdown-end flex-[1] flex justify-end pr-4">
       <label tabIndex={0} className="btn btn-ghost btn-circle ">
         <div className="w-10 rounded-full flex justify-center items-center">
           User
@@ -38,7 +38,7 @@ export default function NavBar() {
   return (
     <div className="navbar">
       <div className="flex-[0.5]">Konstructor Bay</div>
-      <div className=" gap-2">
+      <div className="flex-1 gap-2">
         <div className="form-control flex-1">
           <input type="text" className="input input-bordered w-24 md:w-auto" />
         </div>
