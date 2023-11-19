@@ -128,3 +128,12 @@ class Db_storage:
         removes the method on the current private session
         """
         self.__session.remove()
+
+    def insert_data(self, *args):
+        """Insert data into tables"""
+        for arg in args:
+            self.new(arg)
+        self.save()
+
+    
+

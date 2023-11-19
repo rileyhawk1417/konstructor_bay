@@ -17,5 +17,5 @@ class User(Base, BaseModel):
     email = Column(String(256), nullable=True)
     phone_num = Column(String(20), nullable=True)
     password = Column(String(256), nullable=True)
-    location_id = Column(String(100), ForeignKey("location.id"), nullable=True)
-    location = relationship("Location", backref="user_ref", foreign_keys=[location_id], cascade="all, delete")
+    location = relationship("Location", back_populates="user", uselist=False,cascade="all, delete")
+

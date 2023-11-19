@@ -12,8 +12,8 @@ class Location(Base, BaseModel):
     location for user, product
     """
     __tablename__ = "location"
-    user_id = Column(String(100), ForeignKey('user.id'), nullable=False)
-    user = relationship("User", backref="locations_ref", foreign_keys=[user_id])
-    country = Column(String(24), nullable=False)
-    county = Column(String(50), nullable=False)
+    user_id = Column(String(100), ForeignKey('user.id'), nullable=True)
+    user = relationship("User", back_populates="location")
+    country = Column(String(24), nullable=True)
+    county = Column(String(50), nullable=True)
     zone = Column(String(60), nullable=True)

@@ -12,6 +12,6 @@ class Order(Base, BaseModel):
     """
     __tablename__ = 'orders'
     product_id = Column(String(100), ForeignKey('products.id'), nullable=False)    
-    user_id = Column(String(100), ForeignKey('user.id'), nullable=False)
+    user_id = Column(String(100), ForeignKey('user.id'), nullable=True)
     user = relationship('User', backref='order')
-    product = relationship('Product', backref='Order')
+    product = relationship('Product', backref='order')

@@ -1,43 +1,21 @@
-import sqlalchemy 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker 
-from sqlalchemy.orm import scoped_session
-from models.base_model import Base
+from models import storage
+from models.product import Product
 from models.user import User
-from models.orders import Order
 from models.location import Location
 from models.cart import Cart
-from models.product import Product
-from models import storage
+from models.orders import Order
+from models.base_model import Base, BaseModel
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 from models.engine.db_engine import Db_storage
-import models
+
+# Creating instances of models
+location_instance = Location(country='Kenya', county='Nairobi', zone='Kasarani')
+user_instance = User(firstName='John', sec_name='Doe', email='john@example.com', username='johndoe', phone_num='+1234567890', password='password', location=location_instance)
 
 
-my_db = Db_storage()
-my_db.reload()
-
-username = 'ks_developers'
-password = ''
-host = 'localhost'
-database = 'ks_dev_db'
-
-
-
-
-new_user = User(firstName='Root', sec_name='shadow', email='rootcode947@gmail.com',
-        username='Mr root', phone_num='0700000000', password='rootcode', location_id='254'    
-        )
-new_location = Location(country='Nairobi')
-engine = create_engine(f"mysql+mysqldb://{username}:{password}@{host}/{database}")
-Session = sessionmaker(bind=engine)
-session = Session()
-
-my_db.new(new_user)
-my_db.save()
-
-#querying all users
-all_users = session.query(User).all()
-for user in all_users:
-    print(user.email)
-
-my_db.close()
+# Create tables and insert data
+db_handler = Db_storage()
+db_handler.reload() #the reload method creetes all tables in the db
+db_handler.insert_data(user_instance, location_instance)  
