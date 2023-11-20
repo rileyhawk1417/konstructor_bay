@@ -11,7 +11,7 @@ Moses Gitonga  infosec947@gmail.com  <https://github.com/mosesgitonga>
                         #USAGE:
     #CREATE DATABASE WITH TABLES IN YOUR LOCALHOST
     #RUN
-    cat mysql_dev_setup.sql | sudo mysql -u root -h localhost -p
+    cat mysql_dev_setup.sql | sudo mysql -u root -h localhost -p  #password=NULL
 
     #INSERTING DATA INTO CLOUMNS
     #RUN
