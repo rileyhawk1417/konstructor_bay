@@ -20,6 +20,10 @@ classes = {
 }
 
 class Db_storage:
+    """
+    Interacting with the mysql database
+    """
+    
     __engine = None
     __session = None
 
@@ -27,11 +31,15 @@ class Db_storage:
         """
         instantiate db objects
         """
+
         username = 'ks_developers'
         password = ''
         host = 'localhost'
         database = 'ks_dev_db'
         self.__engine = create_engine(f"mysql+mysqldb://{username}:{password}@{host}/{database}")
+
+        Session = sessionmaker(bind=self.__engine)
+        self.__session = Session()
 
     def reload(self):
         """ reload data from our db
@@ -135,5 +143,28 @@ class Db_storage:
             self.new(arg)
         self.save()
 
+    def update_data(self, obj, **kwargs):
+        """Update data in tables"""
+        for key, val in kwargs.items():
+            if key != 'id' and key != 'created_at' and key != 'updated_at':
+                setattr(obj, key, val)
+        self.save()
+    def select_data(self, cls):
+        """Select data from tables"""
+        return self.__session.query(cls).all()
+
+    def create_data(self, cls, **kwargs):
+        """Create data in tables"""
+        obj = cls(**kwargs)
+        self.new(obj)
+        self.save()
+        return obj
+    
+    def delete_data(self, obj):
+        """delete data in a table"""
+        self.__session.delete(obj)
+        self.save()
+        
+    
     
 

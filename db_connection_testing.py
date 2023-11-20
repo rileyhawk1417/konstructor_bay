@@ -15,7 +15,15 @@ location_instance = Location(country='Kenya', county='Nairobi', zone='Kasarani')
 user_instance = User(firstName='John', sec_name='Doe', email='john@example.com', username='johndoe', phone_num='+1234567890', password='password', location=location_instance)
 
 
-# Create tables and insert data
 db_handler = Db_storage()
+#db_handler.delete(user_instance)
 db_handler.reload() #the reload method creetes all tables in the db
-db_handler.insert_data(user_instance, location_instance)  
+
+#db_handler.insert_data(user_instance, location_instance) 
+db_handler.create_data(Product, product_name='sand', description='cheap sand')
+for user in db_handler.select_data(User):
+    print(user.firstName)
+    print(user.location.country)
+
+#db_handler.delete(user_instance)
+
