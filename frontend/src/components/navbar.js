@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BsCart4 } from "react-icons/bs";
 /*
  * To avoid writing large code in one function.
  * It helps to split them like below
@@ -24,6 +25,12 @@ function ProfileDropDown() {
           </Link>
         </li>
         <li>
+          <Link href='/cart' className="flex flex-row items-center justify-between">
+            <span>Cart</span>
+            <BsCart4 size={24} />
+          </Link>
+        </li>
+        <li>
           <Link href="#">Settings</Link>
         </li>
         <li>
@@ -36,7 +43,7 @@ function ProfileDropDown() {
 
 export default function NavBar() {
   return (
-    <div className="navbar">
+    <div className="navbar sticky top-0 z-10 bg-slate-700">
       <div className="flex-[0.5]">Konstructor Bay</div>
       <div className="flex-1 gap-2">
         <div className="form-control flex-1">
