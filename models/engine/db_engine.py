@@ -2,6 +2,8 @@
 """
 connecting to the db
 """
+from models.supplier import Supplier
+from models.inbox import Inbox
 from models.base_model import Base, BaseModel
 from models.user import User
 from models.orders import Order
@@ -16,14 +18,15 @@ import models
 classes = {
     "User": User, "Order": Order,
     "Location": Location, "Cart": Cart,
-    "Product": Product
+    "Product": Product, "Supplier": Supplier,
+    "Inbox": Inbox
 }
 
 class Db_storage:
     """
     Interacting with the mysql database
     """
-    
+
     __engine = None
     __session = None
 
@@ -72,7 +75,7 @@ class Db_storage:
         """
         Query all classes or specific one by ID
         """
-        allClasses = [User, Product, Location, Cart, Order]
+        allClasses = [User, Product, Location, Cart, Order, Supplier, Inbox]
         result = {}
 
         if cls is not None:
@@ -161,10 +164,6 @@ class Db_storage:
         return obj
     
     def delete_data(self, obj):
-        """delete data in a table"""
-        self.__session.delete(obj)
+        """Delete data from tables"""
+        self.delete(obj)
         self.save()
-        
-    
-    
-

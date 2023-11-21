@@ -19,3 +19,6 @@ class User(Base, BaseModel):
     password = Column(String(256), nullable=True)
     location = relationship("Location", back_populates="user", uselist=False,cascade="all, delete")
 
+    def __repr__(self):
+        """Returns a string representation of the User object"""
+        return f"User: id={self.id}, firstName={self.firstName}, email={self.email}" 
