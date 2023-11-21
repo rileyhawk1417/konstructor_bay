@@ -11,10 +11,12 @@ from sqlalchemy.orm import scoped_session
 from models.engine.db_engine import Db_storage
 from models.engine.inventory_manager import Inventory_manager
 from models.engine.user_manager import User_manager
+from models import storage
 
-um = User_manager
+db = storage
+some_id = '6d290236-80a3-41e6-8cc2-e0ee975c4716'
+res = db.new_get(User, some_id)
+print(res.__dict__)
 
-um.create_user('moses', 'gitonga', 'root', 'infosec947@gmail.com', 'my_password')
-print(um.read_users())
 
 

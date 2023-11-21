@@ -39,7 +39,7 @@ class User_manager:
         """
         update user email
         """
-        user = storage.query_id(User)
+        user = storage.new_get(User, user_id)
         if user is None:
             print ("user not found")
             return 'user not found'
@@ -59,8 +59,44 @@ class User_manager:
         """
         delete user
         """
-        user = storage.get(User, user_id)
+
+        user = storage.new_get(User, user_id)
         if user is None:
             print ("user not found")
             return 'user not found'
         storage.delete(user)
+        storage.save()
+        return user
+
+    @staticmethod
+    def create_supplier(supplier_name, email, phone_num):
+        """
+        create supplier
+        """
+        supplier = Supplier()
+        supplier.supplier_name = supplier_name
+        supplier.email = email
+        supplier.phone_num = phone_num
+        storage.new(supplier)
+        storage.save()
+        return supplier
+
+    @staticmethod
+    def read_suppliers():
+        """
+        read all suppliers
+        """
+        return storage.all(Supplier)
+
+    @staticmethod
+    def delete_supplier(supplier_id):
+        """
+        delete supplier
+        """
+        supplier = storage.get(Supplier, supplier_id)
+        if supplier is None:
+            print ("supplier not found")
+            return 'supplier not found'
+        storage.delete(supplier)
+        storage.save()
+        return supplier

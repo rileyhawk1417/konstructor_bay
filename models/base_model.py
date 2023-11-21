@@ -33,7 +33,7 @@ class BaseModel:
             
     def __str__(self):
         """returns a string representation of this class"""
-        return (f"ID ({self.id}) \n\tclass_name: [{self.__class__.__name__}] \nDictionary{self.__dict__}")
+        return (f"ID ({self.id}) class_name: [{self.__class__.__name__}] Dictionaryself.__dict__")
 
     def save(self):
         """updates an instance with current datetime"""

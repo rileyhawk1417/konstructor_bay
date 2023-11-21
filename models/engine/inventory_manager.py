@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 from models.product import Product
+from models.location import Location
 from models.engine.db_engine import Db_storage
 
 class Inventory_manager:
     def __init__(self):
         self.db = Db_storage()
 
-    def add_product(self, name, quantity, price, location):
-        new_product = Product(name=name, quantity=quantity, price=price, location=location)
-        self.db.new()
+    def add_product(self, name, quantity, price):
+        new_product = Product(product_name=name, quantity=quantity, price=price)
+        self.db.new(new_product)
         self.db.save()
 
     def update_product_quatity(self, product_id, new_quantity):

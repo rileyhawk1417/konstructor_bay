@@ -14,16 +14,18 @@ from models.engine.user_manager import User_manager
 
 um = User_manager
 
-#um.create_user('moses', 'gitonga', 'root', 'infosec947@gmail.com', 'my_password')
-#print(um.read_users())
-"""
-user_id = storage.query_id(User)
-print(user_id)
-um.update_email('0cdc6326-639e-49c6-98be-ce446ba8fa4c', 'rootcode947@gmail.com')
-"""
+um.create_user('moses', 'gitonga', 'root', 'infosec947@gmail.com', 'my_password')
+print(um.read_users())
+#user_id = storage.query_id(User)
+#print(user_id)
+um.update_email('812da25b-7309-4a4c-b02b-e6f1ad28962d', 'rootcode947@gmail.com')
+
+
+#all_users = um.read_users()
+#print(all_users)
+#all_users = um.read_users()
+#um.delete_user('43620e5d-7d75-4544-bb40-8db00abf75b5')
+
 
 all_users = um.read_users()
-print(all_users)
-all_users = um.read_users()
-um.delete_user('0cdc6326-639e-49c6-98be-ce446ba8fa4c')
 print(all_users)

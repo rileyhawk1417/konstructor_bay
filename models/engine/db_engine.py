@@ -122,8 +122,8 @@ class Db_storage:
     
     def get(self, cls, id):
         """
-        returns the obj based on the class name and its id 
-        If not it returns None
+        #returns the obj based on the class name and its id 
+        #If not it returns None
         """
         if cls not in classes:
             return None
@@ -133,6 +133,9 @@ class Db_storage:
                 return value
 
         return None
+        
+    def new_get(self, cls, id):
+        return self.__session.query(cls).get(id)
 
     def close(self):
         """
