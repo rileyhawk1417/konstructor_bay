@@ -55,7 +55,7 @@ class User_manager:
         return storage.all(User)
 
     @staticmethod
-    def delete_user():
+    def delete_user(user_id):
         """
         delete user
         """
