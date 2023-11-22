@@ -16,7 +16,7 @@ from models import storage
 db = storage
 some_id = '6d290236-80a3-41e6-8cc2-e0ee975c4716'
 res = db.new_get(User, some_id)
-print(res.__dict__)
+print(res.__dir__)
 
 
 

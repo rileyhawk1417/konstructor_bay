@@ -18,7 +18,7 @@ um.create_user('moses', 'gitonga', 'root', 'infosec947@gmail.com', 'my_password'
 print(um.read_users())
 #user_id = storage.query_id(User)
 #print(user_id)
-um.update_email('812da25b-7309-4a4c-b02b-e6f1ad28962d', 'rootcode947@gmail.com')
+#um.update_email('812da25b-7309-4a4c-b02b-e6f1ad28962d', 'rootcode947@gmail.com')
 
 
 #all_users = um.read_users()
