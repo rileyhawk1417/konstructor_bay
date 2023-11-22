@@ -33,4 +33,4 @@ class Inventory_manager:
             print("The product is not available")
 
     def read_all_products(self):
-        return self.db.all(Product)
+        return self.db.new_get(Product)

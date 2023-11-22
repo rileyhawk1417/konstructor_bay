@@ -58,7 +58,7 @@ class Db_storage:
         """
         self.__session.commit()
 
-    def delete(self, obj):
+    def delete(self, obj=None):
         """
         delete obj from current db session 
         """
@@ -134,8 +134,11 @@ class Db_storage:
 
         return None
         
-    def new_get(self, cls, id):
-        return self.__session.query(cls).get(id)
+    def new_get(self, cls, id=None):
+        if id is None:
+            return self.__session.query(cls).all()
+        else:
+            return self.__session.query(cls).get(id)
 
     def close(self):
         """
