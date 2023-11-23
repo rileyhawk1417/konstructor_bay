@@ -1,5 +1,5 @@
 import unittest
-from cart_testing. import Cart
+from models import cart
 
 class TestCart(unittest.TestCase):
     def setUp(self):
