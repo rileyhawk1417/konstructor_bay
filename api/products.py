@@ -2,7 +2,7 @@
 """
 endpoints for products
 """
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from models.engine.inventory_manager import Inventory_manager
 from models.product import Product
 
@@ -40,6 +40,33 @@ def get_product(id):
         }
 
     return jsonify(serialized_products)
+
+
+@products_bp.route("/products", methods=['POST'], strict_slashes=False)
+def post_product():
+    """
+    posts a product into the db
+    """
+
+    data = request.get_json()
+    #print(data)
+
+    if 'description' not in data or data['description'] is None:
+            return jsonify("Description is missing or None"), 400
+
+    product_name = data.get("product_name")
+    description = data.get("description")
+    quantity = data.get("quantity")
+    price = data.get("price")
+    print(description)
+
+    im = Inventory_manager()
+    
+    new_product = im.add_product(product_name, quantity, price, description)
+    return jsonify(new_product), 201
+    
+
+
 
 if __name__ == '__main__':
    debug=True

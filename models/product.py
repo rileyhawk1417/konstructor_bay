@@ -9,7 +9,7 @@ from sqlalchemy.orm import relationship
 class Product(Base, BaseModel):
     __tablename__ = "products"
     product_name = Column(String(239), nullable=True)
-    description = Column(String(350), nullable=True)
+    description = Column(String(350), nullable=False)
     quantity = Column(Integer, nullable=True)
     price = Column(Integer, nullable=True)
     #img_filename = Column(String(256), nullable=True)

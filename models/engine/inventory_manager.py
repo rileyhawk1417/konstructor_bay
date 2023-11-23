@@ -9,9 +9,9 @@ class Inventory_manager:
     def __init__(self):
         self.db = Db_storage()
 
-    def add_product(self, name, quantity, price):
+    def add_product(self, name, quantity, price, description):
         product_id = str(uuid.uuid4())
-        new_product = Product(id=product_id, product_name=name, quantity=quantity, price=price)
+        new_product = Product(id=product_id, product_name=name, quantity=quantity, price=price, description=description)
         self.db.new(new_product)
         self.db.save()
 
