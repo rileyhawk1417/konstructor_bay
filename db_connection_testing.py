@@ -19,7 +19,7 @@ um.create_user('moses', 'gitonga', 'root', 'infosec947@gmail.com', 'my_password'
 print(um.read_users())
 
 
-=======
+
 from models import storage
 from models.product import Product
 from models.user import User
