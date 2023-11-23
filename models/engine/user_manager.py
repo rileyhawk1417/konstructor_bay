@@ -11,6 +11,7 @@ from models.location import Location
 from models import storage
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
+import uuid
 
 class User_manager:
     """
@@ -25,6 +26,7 @@ class User_manager:
         create user
         """
         user = User()
+        user.id = str(uuid.uuid4())
         user.first_name = first_name
         user.sec_name = sec_name
         user.user_name = user_name

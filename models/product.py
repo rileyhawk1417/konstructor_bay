@@ -13,9 +13,9 @@ class Product(Base, BaseModel):
     quantity = Column(Integer, nullable=True)
     price = Column(Integer, nullable=True)
     #img_filename = Column(String(256), nullable=True)
-    user_id = Column(String(256), ForeignKey('user.id'), nullable=True)
+    supplier_id = Column(String(256), ForeignKey('supplier.id'), nullable=True)
     location_id = Column(String(256), ForeignKey('location.id'), nullable=True)
-    user = relationship("User", backref="product")
+    supplier = relationship("Supplier", backref="product")
 
     def __repr__(self):
         return f"<Product {self.product_name}, {self.description}, {self.quantity}, {self.price}>"
@@ -28,6 +28,7 @@ class Product(Base, BaseModel):
             "description": product_instance.description,
             "quantity": product_instance.quantity,
             "price": product_instance.price,
-            "user_id": product_instance.user_id,
+            "supplier_id": product_instance.supplier_id,
+            "supplier_name": product_instance.supplier.business_name if product_instance.supplier else None,
             "location_id": product_instance.location_id
         }

@@ -10,7 +10,7 @@ from models.product import Product
 
 products_bp = Blueprint('products', __name__, url_prefix='/api/products')
 
-@products_bp.route('', methods=['GET'])
+@products_bp.route('/', methods=['GET'], strict_slashes=False)
 def get_products():
     """
     listing all products
@@ -19,6 +19,8 @@ def get_products():
     products = inventory_manager.read_all_products()
     serialized_products = [Product.serialize(product) for product in products]
     return jsonify(serialized_products), 200
+
+#def 
 
 if __name__ == '__main__':
     debug=True

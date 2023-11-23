@@ -15,7 +15,7 @@ class Inventory_manager:
         self.db.new(new_product)
         self.db.save()
 
-    def update_product_quatity(self, product_id, new_quantity):
+    def update_product_quantity(self, product_id, new_quantity):
         product = self.db.get(Product, product_id)
         if product:
             products.quantity = new_product
