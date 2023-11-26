@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #!/usr/bin/env python3
 """
 products model
@@ -52,4 +51,3 @@ class Product(Base, BaseModel):
             "supplier_name": product_instance.supplier.business_name if product_instance.supplier else None,
             "location_id": product_instance.location_id
         }
->>>>>>> 31a363f692dcd2740c885be3f64357cbfc102f2b
