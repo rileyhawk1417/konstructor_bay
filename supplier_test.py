@@ -19,7 +19,6 @@ class TestSupplier(unittest.TestCase):
             delivery=True,
             user=self.user,
             inbox=self.inbox
-            # Add other attributes as necessary
         )
         # Validate attributes
         self.assertEqual(supplier.business_name, "Test Business")
@@ -27,7 +26,6 @@ class TestSupplier(unittest.TestCase):
         self.assertEqual(supplier.email, "test@example.com")
         self.assertEqual(supplier.phone_num, "1234567890")
         self.assertTrue(supplier.delivery)
-        # Add more assertions as needed to cover other attributes
 
     def test_supplier_relationships(self):
         supplier = Supplier(
@@ -43,8 +41,6 @@ class TestSupplier(unittest.TestCase):
         self.assertEqual(supplier.user, self.user)
         self.assertEqual(supplier.inbox, self.inbox)
 
-    # Add more test cases to cover additional scenarios, e.g. validation, edge cases, methods, etc.
-    # ...
 
 if __name__ == '__main__':
     unittest.main()
