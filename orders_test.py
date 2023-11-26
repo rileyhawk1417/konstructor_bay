@@ -1,21 +1,21 @@
 import unittest
-from models.order import orders 
-from models.user import user  
-from models.product import product
+from models.order import Order 
+from models.user import User  
+from models.product import Product
 
 class TestOrder(unittest.TestCase):
     def setUp(self):
-        self.user = user(id='456', username='test_user')
-        self.product = product(id='123', name='Test Product')
+        self.user = User(id='456', username='test_user')
+        self.product = Product(id='123', name='Test Product')
 
     def test_order_attributes(self):
-        order = orders(product_id='123', user_id='456')
+        order = Order(product_id='123', user_id='456')
         
         self.assertEqual(order.product_id, '123')
         self.assertEqual(order.user_id, '456')
 
     def test_order_relationships(self):
-        order = orders(product_id='123', user_id='456', user=self.user, product=self.product)
+        order = Order(product_id='123', user_id='456', user=self.user, product=self.product)
         
         self.assertEqual(order.user, self.user)
         self.assertEqual(order.product, self.product)
