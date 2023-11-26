@@ -1,7 +1,7 @@
 import unittest
-from models.order import Order 
-from models.user import User  
-from models.product import Product
+from models.order import order 
+from models.user import user  
+from models.product import product
 
 class TestOrder(unittest.TestCase):
     def setUp(self):
