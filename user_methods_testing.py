@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from models import storage
 from models.product import Product
 from models.user import User
@@ -60,4 +59,3 @@ print(um.read_users())
 
 all_users = um.read_users()
 print(all_users)
->>>>>>> 31a363f692dcd2740c885be3f64357cbfc102f2b
