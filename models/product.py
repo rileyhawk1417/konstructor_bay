@@ -19,7 +19,7 @@ class Product(Base, BaseModel):
 
     def __repr__(self):
         return f"<Product {self.product_name}, {self.description}, {self.quantity}, {self.price}>"
-
+        
     @classmethod
     def serialize(cls, product_instance):
         return {
