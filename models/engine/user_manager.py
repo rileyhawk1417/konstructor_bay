@@ -37,15 +37,15 @@ class User_manager:
         return user
     
     @staticmethod
-    def update_email(user_id, email):
+    def update_passwd(user_id, passwd):
         """
-        update user email
+        update user password
         """
         user = storage.new_get(User, user_id)
         if user is None:
             print ("user not found")
             return 'user not found'
-        user.email = email
+        user.password = passwd
         storage.save()
         return user
 
@@ -57,7 +57,7 @@ class User_manager:
         return storage.all(User)
 
     @staticmethod
-    def delete_user(user_id):
+    def delete_a_user(user_id):
         """
         delete user
         """
