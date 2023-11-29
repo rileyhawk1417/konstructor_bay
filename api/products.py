@@ -58,10 +58,11 @@ def post_product():
     description = data.get("description")
     quantity = data.get("quantity")
     price = data.get("price")
+    supplier_id = data.get("supplier_id")
 
     im = Inventory_manager()
     
-    new_product = im.add_product(product_name, quantity, price, description)
+    new_product = im.add_product(product_name, quantity, price, description, supplier_id)
     return jsonify(new_product), 201
 
 """
