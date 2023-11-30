@@ -8,6 +8,20 @@ NAME                   EMAIL                   GITHUB
 
 Moses Gitonga  infosec947@gmail.com  <https://github.com/mosesgitonga>
 
+For this project you will need to install flask, sqlalchemy and mysql.
+      To install flask:
+      pip install flask 
+
+      To install sqlalchemy:
+      pip install sqlalchemy 
+
+      To install mysql:
+      sudo apt install mysql-server -y
+      sudo service mysql start
+
+
+
+
                         #USAGE:
     #CREATE DATABASE WITH TABLES IN YOUR LOCALHOST
     #RUN
