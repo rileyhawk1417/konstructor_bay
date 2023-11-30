@@ -52,12 +52,13 @@ export default function ProductGrid(props) {
     <div className="grid grid-cols-4 gap-8 ">
       {props.data.map((item, idx) => (
         <ProductCard
+          key={idx + 1}
           keyID={idx}
-          itemID={item.itemID}
-          itemName={item.itemName}
-          itemDesc={item.itemDesc}
+          itemID={item.id}
+          itemName={item.product_name}
+          itemDesc={item.description}
           quantity={item.quantity}
-          supplierName={item.supplier}
+          supplierName={item.supplier_name}
           itemPrice={item.price}
         />
       ))}

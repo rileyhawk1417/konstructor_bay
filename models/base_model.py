@@ -4,6 +4,7 @@ import uuid
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import declarative_base
 from datetime import datetime
+import models
 
 time = "%Y-%m-%dT-%H-%M-%.%f"
 Base = declarative_base()
