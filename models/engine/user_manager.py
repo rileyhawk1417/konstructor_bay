@@ -25,16 +25,35 @@ class User_manager:
         """
         registers a user into the database
         """
-        user = User()
-        user.id = str(uuid.uuid4())
-        user.first_name = first_name
-        user.sec_name = sec_name
-        user.user_name = user_name
-        user.email = email
-        user.password = password
-        storage.new(user)
-        storage.save()
-        return user
+        existing_user = storage.new_get(User, username=username)
+        if existing_user:
+            return f"Username {username} already exists"
+        else:
+            new_user = User(
+                id = str(uuid.uuid4()),
+                firstName = first_name,
+                sec_name = sec_name,
+                username = username,
+                email = email,
+                password = password,
+            )
+            storage.new(new_user)
+            storage.save()
+            return new_user
+    
+    @staticmethod
+    def login(username, password):
+        """
+        login a user if he/she is registerd
+        """
+        existing_user = storage.new_get(User, username=username)
+        if existing_user and existing_user.password == password:
+            print(f"Welcome {username}")
+            return True
+        else:
+            print("Invalid username or password. Please try againn")
+            return False
+
     
     @staticmethod
     def update_passwd(user_id, passwd):
