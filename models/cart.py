@@ -15,3 +15,7 @@ class Cart(Base, BaseModel):
     product_id = Column(String(100), ForeignKey('products.id'), nullable=False)
     user = relationship('User', backref='cart')
     product = relationship('Product', backref='cart')
+    #number of items in the cart
+    #total price for all the items
+    #when cart is clcked show all products
+    

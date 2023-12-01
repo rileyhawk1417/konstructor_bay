@@ -2,7 +2,7 @@
 """
 this class defines crud operations for the user model
 """
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel, Base   
 from models.user import User
 from models.supplier import Supplier
 from models.product import Product
@@ -13,12 +13,10 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 import uuid
 
-
 class User_manager:
     """
     user manager class
     """
-
     def __init__(self):
         pass
 
@@ -37,17 +35,17 @@ class User_manager:
         storage.new(user)
         storage.save()
         return user
-
+    
     @staticmethod
-    def update_email(user_id, email):
+    def update_passwd(user_id, passwd):
         """
-        update user email
+        update user password
         """
         user = storage.new_get(User, user_id)
         if user is None:
-            print("user not found")
-            return "user not found"
-        user.email = email
+            print ("user not found")
+            return 'user not found'
+        user.password = passwd
         storage.save()
         return user
 
@@ -59,15 +57,15 @@ class User_manager:
         return storage.all(User)
 
     @staticmethod
-    def delete_user(user_id):
+    def delete_a_user(user_id):
         """
         delete user
         """
 
         user = storage.new_get(User, user_id)
         if user is None:
-            print("user not found")
-            return "user not found"
+            print ("user not found")
+            return 'user not found'
         storage.delete(user)
         storage.save()
         return user
@@ -99,8 +97,8 @@ class User_manager:
         """
         supplier = storage.get(Supplier, supplier_id)
         if supplier is None:
-            print("supplier not found")
-            return "supplier not found"
+            print ("supplier not found")
+            return 'supplier not found'
         storage.delete(supplier)
         storage.save()
         return supplier
