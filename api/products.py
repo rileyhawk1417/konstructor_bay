@@ -58,14 +58,30 @@ def post_product():
     description = data.get("description")
     quantity = data.get("quantity")
     price = data.get("price")
-    print(description)
+    supplier_id = data.get("supplier_id")
 
     im = Inventory_manager()
     
-    new_product = im.add_product(product_name, quantity, price, description)
+    new_product = im.add_product(product_name, quantity, price, description, supplier_id)
     return jsonify(new_product), 201
-    
 
+"""
+update product quality
+"""
+@products_bp.route("/products/<id>/update_quantity/<int:new_product_quantity>", methods=['PUT'], strict_slashes=False)
+def update_quantity(id, new_product_quality):
+    im = Inventory_manager()
+    product = im.update_product_quantity(id, new_product_quality)
+    return jsonify(product), 200
+
+@products_bp.route("/products/id", methods=['DELETE'], strict_slashes=False)
+def delete_product(id):
+    """
+    deletes a pproduct from the db
+    """
+    im = Inventory_manager()
+    product = im.delete_product(id)
+    return jsonify(product), 200
 
 
 if __name__ == '__main__':
