@@ -134,11 +134,14 @@ class Db_storage:
 
         return None
         
-    def new_get(self, cls, id=None):
-        if id is None:
-            return self.__session.query(cls).all()
-        else:
+    def new_get(self, cls, id=None, username=None):
+        if id is not None:
             return self.__session.query(cls).get(id)
+        elif username is not None:
+            return self.__session.query(cls).filter_by(username=username).first()
+        else:
+            return self.__session.query(cls).all() if id is None else None
+
 
     def close(self):
         """

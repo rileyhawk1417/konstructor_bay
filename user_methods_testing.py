@@ -13,7 +13,9 @@ from models.engine.inventory_manager import Inventory_manager
 from models.engine.user_manager import User_manager
 
 um = User_manager
+um.login("johndoe", "mysecurepassword")
 
+"""
 um.create_user('moses', 'gitonga', 'root', 'infosec947@gmail.com', 'my_password')
 print(um.read_users())
 #user_id = storage.query_id(User)
@@ -29,3 +31,4 @@ print(um.read_users())
 
 all_users = um.read_users()
 print(all_users)
+"""
