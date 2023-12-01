@@ -2,7 +2,7 @@
 """
 this class defines crud operations for the user model
 """
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel, Base   
 from models.user import User
 from models.supplier import Supplier
 from models.product import Product
@@ -13,45 +13,29 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 import uuid
 
-
 class User_manager:
     """
     user manager class
     """
-
     def __init__(self):
         pass
 
     @staticmethod
-    def create_user(first_name, sec_name, user_name, email, password):
+    def create_user(first_name, sec_name, username, email, password):
         """
-        create user
+        registers a user into the database
         """
         user = User()
         user.id = str(uuid.uuid4())
-        user.firstName = first_name
+        user.first_name = first_name
         user.sec_name = sec_name
-        user.username = user_name
+        user.user_name = user_name
         user.email = email
         user.password = password
-        print(user)
         storage.new(user)
         storage.save()
         return user
-
-    @staticmethod
-    def check_user(email, passwd):
-        """
-        update user password
-        """
-        user = storage.new_get(User, email)
-        if user is None:
-            print("user not found")
-            return "user not found"
-        if user.email == email and user.password == passwd:
-            return user
-        return None
-
+    
     @staticmethod
     def update_passwd(user_id, passwd):
         """
@@ -59,8 +43,8 @@ class User_manager:
         """
         user = storage.new_get(User, user_id)
         if user is None:
-            print("user not found")
-            return "user not found"
+            print ("user not found")
+            return 'user not found'
         user.password = passwd
         storage.save()
         return user
@@ -80,8 +64,8 @@ class User_manager:
 
         user = storage.new_get(User, user_id)
         if user is None:
-            print("user not found")
-            return "user not found"
+            print ("user not found")
+            return 'user not found'
         storage.delete(user)
         storage.save()
         return user
@@ -113,8 +97,8 @@ class User_manager:
         """
         supplier = storage.get(Supplier, supplier_id)
         if supplier is None:
-            print("supplier not found")
-            return "supplier not found"
+            print ("supplier not found")
+            return 'supplier not found'
         storage.delete(supplier)
         storage.save()
         return supplier
