@@ -42,6 +42,12 @@ class Inventory_manager:
     def read_all_products(self):
         return self.db.new_get(Product)
 
+    def read_all_products_by_supplier(self, supplier_id):
+        """ 
+        read all products listed by a specific supplier
+        """
+        return self.db.new_get(Product, supplier_id)
+
     def read_specific_product(self, product_id):
         return self.db.new_get(Product, product_id)
 

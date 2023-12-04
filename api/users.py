@@ -84,4 +84,25 @@ def list_all_users():
 
 
 # if __name__ == "__main__":
-#   users_bp.run(debug=True)
+#   users_bp.run(debug=True
+@users_bp.route("/supplier", methods=['POST'], strict_slashes=False)
+def add_supplier():
+    """
+    adding supplier
+    """
+    um = User_manager()
+    data = request.get_json()
+
+    supplier_name = data.get('supplier_name')
+    email = data.get('email')
+    phone_num = data.get('phone_num')
+    
+    new_supplier = um.create_supplier(supplier_name, email, phone_num)
+    if new_supplier:
+        return jsonify("new supplier created successfully")
+    else:
+        return jsonify('Error: Something went wrong,\n\tError when creating supplier')
+    
+#if __name__ == "__main__":
+ #   users_bp.run(debug=True)
+
