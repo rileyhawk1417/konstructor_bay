@@ -1,4 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Checkbox,
+  Input,
+} from "@nextui-org/react";
+import { MailIcon } from "./MailIcon.jsx";
+import { LockIcon } from "./LockIcon.jsx";
 import { BsCart4 } from "react-icons/bs";
 /*
  * To avoid writing large code in one function.
@@ -6,7 +22,20 @@ import { BsCart4 } from "react-icons/bs";
  * The Profile button is separate and can easily be included
  * in the main function
  */
+
 function ProfileDropDown() {
+  const [cookie, setCookie] = useState(false);
+  useEffect(() => {
+    const strippedCookie = document.cookie.substring(
+      13,
+      document.cookie.length,
+    );
+    if (strippedCookie) {
+      setCookie(true);
+    } else {
+      setCookie(false);
+    }
+  }, []);
   return (
     <div className="dropdown dropdown-end flex-[1] flex justify-end pr-4">
       <label tabIndex={0} className="btn btn-ghost btn-circle ">
@@ -19,13 +48,17 @@ function ProfileDropDown() {
         className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
       >
         <li>
-          {/* Link from nextJS is like the <a></a>*/}
-          <Link href="#" className="justify-between">
-            Profile <span className="badge">New</span>
-          </Link>
+          {cookie ? (
+            <Link href="/usr/1/profile" replace className="justify-between">
+              Profile
+            </Link>
+          ) : null}
         </li>
         <li>
-          <Link href='/cart' className="flex flex-row items-center justify-between">
+          <Link
+            href="/cart"
+            className="flex flex-row items-center justify-between"
+          >
             <span>Cart</span>
             <BsCart4 size={24} />
           </Link>
@@ -34,7 +67,18 @@ function ProfileDropDown() {
           <Link href="#">Settings</Link>
         </li>
         <li>
-          <Link href="#">Logout</Link>
+          {cookie ? (
+            <Link
+              href="#"
+              onClick={() =>
+                (document.cookie = "login_status=false; SameSite=None; Secure")
+              }
+            >
+              Logout
+            </Link>
+          ) : (
+            <Link href="#">Signin</Link>
+          )}
         </li>
       </ul>
     </div>
