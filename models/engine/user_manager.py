@@ -95,6 +95,7 @@ class User_manager:
         create supplier
         """
         supplier = Supplier()
+        supplier.id = str(uuid.uuid4())
         supplier.supplier_name = supplier_name
         supplier.email = email
         supplier.phone_num = phone_num
