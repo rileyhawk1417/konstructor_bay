@@ -2,19 +2,6 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  useDisclosure,
-  Checkbox,
-  Input,
-} from "@nextui-org/react";
-import { MailIcon } from "./MailIcon.jsx";
-import { LockIcon } from "./LockIcon.jsx";
 import { BsCart4 } from "react-icons/bs";
 /*
  * To avoid writing large code in one function.
@@ -77,7 +64,9 @@ function ProfileDropDown() {
               Logout
             </Link>
           ) : (
-            <Link href="#">Signin</Link>
+            <Link href="/user" replace>
+              Login
+            </Link>
           )}
         </li>
       </ul>
