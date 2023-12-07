@@ -15,7 +15,7 @@ class Product(Base, BaseModel):
     #img_filename = Column(String(256), nullable=True)
     supplier_id = Column(String(256), ForeignKey('supplier.id'), nullable=True)
     location_id = Column(String(256), ForeignKey('location.id'), nullable=True)
-    supplier_relationship = relationship("Supplier", backref="products")
+    supplier = relationship("Supplier", backref="products")
 
     def __repr__(self):
         return f"<Product {self.product_name}, {self.description}, {self.quantity}, {self.price}>"

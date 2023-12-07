@@ -19,6 +19,7 @@ class Inventory_manager:
             price=price, 
             description=description, 
             supplier_id=supplier_id)
+            
         self.db.new(new_product)
         self.db.save()
 

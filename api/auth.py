@@ -44,7 +44,8 @@ def login():
     password = data.get("password")
 
     um = User_manager()
-    if um.login(username, password):
-        return jsonify("login successful"), 200
+    user_id = um.login(username, password)
+    if user_id:
+        return jsonify({"massage": "login is successfull", "user_id": user_id}), 200
     else:
         return jsonify("invalid credentials"), 401

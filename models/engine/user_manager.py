@@ -49,10 +49,12 @@ class User_manager:
         existing_user = storage.new_get(User, username=username)
         if existing_user and existing_user.password == password:
             print(f"Welcome {username}")
-            return True
+            return existing_user.id
+            #
+            #return True
         else:
             print("Invalid username or password. Please try againn")
-            return False
+            return None
 
     
     @staticmethod

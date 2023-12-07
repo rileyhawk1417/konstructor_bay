@@ -51,15 +51,17 @@ def post_product():
     """
 
     data = request.get_json()
-    # print(data)
+    #print(data)
 
     if "description" not in data or data["description"] is None:
         return jsonify("Description is missing or None"), 400
 
+    
     product_name = data.get("product_name")
     description = data.get("description")
     quantity = data.get("quantity")
     price = data.get("price")
+    business_name = data.get("business_name")
     supplier_id = data.get("supplier_id")
 
     im = Inventory_manager()

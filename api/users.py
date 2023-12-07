@@ -82,9 +82,7 @@ def list_all_users():
     um = User_manager()
     return jsonify(um.read_users())
 
-
-# if __name__ == "__main__":
-#   users_bp.run(debug=True
+    
 @users_bp.route("/supplier", methods=['POST'], strict_slashes=False)
 def add_supplier():
     """

@@ -14,7 +14,15 @@ class Supplier(Base, BaseModel):
     email = Column(String(170), nullable=True)
     phone_num = Column(String(50), nullable=True)
     delivery = Column(Boolean, nullable=True)
-    user = relationship("User", backref="supplier")
-    user_id = Column(String(256), ForeignKey('user.id'), nullable=True)
+    #user = relationship("User", backref="supplier")
     #inbox = relationship("Inbox", backref="supplier")
     inbox_id = Column(String(256), ForeignKey('inbox.id'), nullable=True)
+    user_id = Column(String(256), ForeignKey('user.id'), nullable=True)
+    supplier_user = relationship("User", 
+        back_populates="supplier", 
+        uselist=False, 
+        primaryjoin='Supplier.user_id == User.id',
+        foreign_keys=[user_id],
+        viewonly=True
+    )
+    
