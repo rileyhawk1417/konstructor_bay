@@ -51,12 +51,11 @@ def post_product():
     """
 
     data = request.get_json()
-    #print(data)
+    # print(data)
 
     if "description" not in data or data["description"] is None:
         return jsonify("Description is missing or None"), 400
 
-    
     product_name = data.get("product_name")
     description = data.get("description")
     quantity = data.get("quantity")
@@ -88,7 +87,7 @@ def update_quantity(id, new_product_quality):
     return jsonify(product), 200
 
 
-@products_bp.route("/products/id", methods=["DELETE"], strict_slashes=False)
+@products_bp.route("/products/<id>", methods=["DELETE"], strict_slashes=False)
 def delete_product(id):
     """
     deletes a pproduct from the db

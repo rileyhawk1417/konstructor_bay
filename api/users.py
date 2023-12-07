@@ -4,6 +4,7 @@ users crud operations api end points
 """
 from models import storage
 from models.user import User
+from models.supplier import Supplier
 from flask import Blueprint, jsonify, request
 from models.engine.user_manager import User_manager
 
@@ -82,8 +83,8 @@ def list_all_users():
     um = User_manager()
     return jsonify(um.read_users())
 
-    
-@users_bp.route("/supplier", methods=['POST'], strict_slashes=False)
+
+@users_bp.route("/add_supplier", methods=["POST"], strict_slashes=False)
 def add_supplier():
     """
     adding supplier
@@ -91,16 +92,27 @@ def add_supplier():
     um = User_manager()
     data = request.get_json()
 
-    supplier_name = data.get('supplier_name')
-    email = data.get('email')
-    phone_num = data.get('phone_num')
-    
-    new_supplier = um.create_supplier(supplier_name, email, phone_num)
-    if new_supplier:
-        return jsonify("new supplier created successfully")
-    else:
-        return jsonify('Error: Something went wrong,\n\tError when creating supplier')
-    
-#if __name__ == "__main__":
- #   users_bp.run(debug=True)
+    supplier_name = data.get("supplier_name")
+    email = data.get("email")
+    user_id = data.get("user_id")
+    phone_num = data.get("phone_num")
+    if user_id is None:
+        return jsonify("user_id required to be connected to supplier"), 401
 
+    # TODO: Add checks for duplicate suppliers and business names
+    existing_name = storage.new_get(Supplier, supplier_name=supplier_name)
+    print(existing_name)
+    if existing_name:
+        print("existing supplier name found")
+        return jsonify("User already registered as supplier"), 401
+    new_supplier = um.create_supplier(supplier_name, email, phone_num, user_id)
+    if new_supplier:
+        return jsonify("new supplier created successfully"), 200
+    else:
+        return jsonify(
+            "Error: Something went wrong,\n\tError when creating supplier"
+        ), 401
+
+
+# if __name__ == "__main__":
+#   users_bp.run(debug=True)
