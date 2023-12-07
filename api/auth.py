@@ -5,6 +5,7 @@ registration and login api endpoint
 from flask import Blueprint, jsonify, request
 from models.engine.user_manager import User_manager
 from models.user import User
+from models.supplier import Supplier
 from models import storage
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
@@ -57,6 +58,30 @@ def fetch_user(id):
                 "fname": user_data.firstName,
                 "lname": user_data.sec_name,
                 "user_id": user_data.id,
+            }
+        ), 200
+    else:
+        return jsonify("User not found"), 401
+
+
+@auth_bp.route("/fetch_supplier_id/<id>", methods=["POST"], strict_slashes=False)
+def fetch_supplier_id(id):
+    """
+    fetch a user
+    """
+    found = False
+    existing_user = storage.new_get(Supplier, user_id=id)
+    print(id)
+    print(existing_user)
+    user_data = existing_user
+    if existing_user:
+        user_data = existing_user
+        found = True
+    if found:
+        return jsonify(
+            {
+                "supplier_id": user_data.id,
+                "business_name": user_data.business_name,
             }
         ), 200
     else:

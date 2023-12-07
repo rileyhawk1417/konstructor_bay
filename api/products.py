@@ -68,7 +68,9 @@ def post_product():
     new_product = im.add_product(
         product_name, quantity, price, description, supplier_id
     )
-    return jsonify(new_product), 201
+    if new_product is None:
+        return jsonify("Failed to register product"), 500
+    return jsonify("Product {} registered".format(product_name)), 200
 
 
 """

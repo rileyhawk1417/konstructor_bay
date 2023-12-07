@@ -10,7 +10,7 @@ import { global } from "styled-jsx/css";
 import InventoryTable from "@/components/inventory_table";
 import AddInventory from "@/components/add_product_form";
 import TransactionHistory from "@/components/transaction_history";
-
+export const dynamic = "force-dynamic";
 function transactionHistory() {
   const day = new Date();
   return new Array(50).fill(null).map(() => ({
@@ -22,12 +22,20 @@ function transactionHistory() {
   }));
 }
 
-export default async function Home() {
+export default async function Home(props) {
   const data = transactionHistory();
 
   let apiData = await fetch("http://localhost:5000/api/products").then((k) =>
     k.json(),
   );
+
+  let fetchSupplierID = await fetch(
+    `http://localhost:5000/api/auth/fetch_supplier_id/${props.params.id}`,
+    {
+      method: "POST",
+    },
+  ).then((k) => k.json());
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <div>
@@ -40,12 +48,8 @@ export default async function Home() {
           </div>
           <div>Username</div>
           <div>
-            <Link href={`/user/${0}/addProduct`}>
+            <Link href="#addProduct">
               <Button>Add Product</Button>
-            </Link>
-
-            <Link href={`/user/${0}/removeProduct`}>
-              <Button>Remove Product</Button>
             </Link>
           </div>
         </div>
@@ -64,8 +68,11 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <AddInventory />
       <InventoryTable data={apiData} />
+      <AddInventory
+        supplier_id={fetchSupplierID.supplier_id}
+        business_name={fetchSupplierID.business_name}
+      />
       <TransactionHistory data={data} />
     </main>
   );

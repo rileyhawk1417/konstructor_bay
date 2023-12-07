@@ -6,6 +6,7 @@ from models.engine.db_engine import Db_storage
 from uuid import uuid4
 import uuid
 
+
 class Inventory_manager:
     def __init__(self):
         self.db = Db_storage()
@@ -13,15 +14,17 @@ class Inventory_manager:
     def add_product(self, name, quantity, price, description, supplier_id):
         product_id = str(uuid.uuid4())
         new_product = Product(
-            id=product_id, 
-            product_name=name, 
-            quantity=quantity, 
-            price=price, 
-            description=description, 
-            supplier_id=supplier_id)
-            
+            id=product_id,
+            product_name=name,
+            quantity=quantity,
+            price=price,
+            description=description,
+            supplier_id=supplier_id,
+        )
+
         self.db.new(new_product)
         self.db.save()
+        return new_product
 
     def update_product_quantity(self, product_id, new_quantity):
         product = self.db.get(Product, product_id)
@@ -44,7 +47,7 @@ class Inventory_manager:
         return self.db.new_get(Product)
 
     def read_all_products_by_supplier(self, supplier_id):
-        """ 
+        """
         read all products listed by a specific supplier
         """
         return self.db.new_get(Product, supplier_id)
@@ -55,6 +58,7 @@ class Inventory_manager:
     """
     when an order is completed deduct from inventory
     """
+
     def deduct_from_inventory(self, product_id, quantity):
         product = self.db.new_get(Product, product_id)
         if product:
@@ -74,7 +78,7 @@ class Inventory_manager:
             return total
         else:
             print("Cart doesn't exist: specify a valid id")
-        
+
     def list_products_in_cart(self, cart_id):
         """
         list all products in a cart
@@ -97,4 +101,3 @@ class Inventory_manager:
 
         else:
             print("cart doesn't exist.\n\t CART ID SPECIFIED DOES NOT EXIST")
-        

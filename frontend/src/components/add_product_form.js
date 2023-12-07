@@ -1,74 +1,98 @@
+"use client";
+
 import { Button } from "@nextui-org/react";
 
-export default function AddInventory() {
+async function addProduct(name, desc, qty, price, id, business_name) {
+  try {
+    const data = await fetch(`http://localhost:5000/api/products`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product_name: name,
+        description: desc,
+        quantity: qty,
+        price: price,
+        supplier_id: id,
+        business_name: business_name,
+      }),
+    });
+    let reply = await data.json();
+    return reply;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export default function AddInventory(props) {
   return (
     <div>
-      <form className="flex flex-col items-start justify-start">
-        <label className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Name of the product</span>
-          </div>
-        </label>
-        <div className="join join-horizontal flex justify-center items-center">
-          <span className="join-item flex items-center justify-center p-4">
-            Product Name
-          </span>
+      <header className="text-2xl" id="addProduct">
+        Add a product
+      </header>
+      <form
+        className="flex flex-col items-start justify-start gap-4"
+        action={async (formData) => {
+          const name = formData.get("name");
+          const desc = formData.get("desc");
+          const price = formData.get("price");
+          const qty = formData.get("qty");
+          const d = addProduct(
+            name,
+            desc,
+            qty,
+            price,
+            props.supplier_id,
+            props.business_name != null ? "" : props.business_name,
+          );
+          console.log(d);
+        }}
+      >
+        <div className="grid grid-cols-2 items-center">
+          <span className="">Product Name</span>
           <input
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full max-w-xs join-item"
+            className="input input-bordered w-full max-w-xs "
+            name="name"
           />
         </div>
 
-        <label className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">Description of the product</span>
-          </div>
-        </label>
-        <div className="join join-horizontal flex justify-center items-center">
-          <span className="join-item flex items-center justify-center p-4">
-            Description
-          </span>
+        <div className="grid grid-cols-2 items-center">
+          <span className="">Description</span>
           <input
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full max-w-xs join-item"
+            className="input input-bordered w-full max-w-xs "
+            name="desc"
           />
         </div>
 
-        <label className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">The number of items</span>
-          </div>
-        </label>
-        <div className="join join-horizontal flex justify-center items-center">
-          <span className="join-item flex items-center justify-center p-4">
-            Quantity
-          </span>
+        <div className="grid grid-cols-2 items-center">
+          <span className="">Quantity</span>
           <input
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full max-w-xs join-item"
+            className="input input-bordered w-full max-w-xs "
+            name="qty"
           />
         </div>
 
-        <label className="form-control w-full max-w-xs">
-          <div className="label">
-            <span className="label-text">The individual price of the item</span>
-          </div>
-        </label>
-        <div className="join join-horizontal flex justify-center items-center">
-          <span className="join-item flex items-center justify-center p-4">
-            Price Per Unit
-          </span>
+        <div className="grid grid-cols-2 items-center">
+          <span className="">Price Per Unit</span>
           <input
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full max-w-xs join-item"
+            className="input input-bordered w-full max-w-xs"
+            name="price"
           />
         </div>
+
+        <Button type="submit">Add Product</Button>
       </form>
-      <Button type="submit">Submit</Button>
     </div>
   );
 }
