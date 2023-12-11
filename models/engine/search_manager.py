@@ -4,24 +4,23 @@ search manager
 """
 from models.engine.db_engine import Db_storage
 from models.product import Product
-from models import storage
-from models.engine.inventory_manager import Inventory_manager
-from flask import jsonify
-from models.base_model import BaseModel
+import re as regex
+
 
 class Search_manager:
-
     @staticmethod
     def search_product_name(product_name):
         """
         search product by its name
         """
         products = Db_storage().new_get(Product)
-
+        print(products)
         if products:
             found_products = []
             for product in products:
-                if product.product_name == product_name:
+                if regex.search(product_name, product.product_name) or regex.search(
+                    product_name, product.description
+                ):
                     product = product.to_dict()
                     found_products.append(product)
 
