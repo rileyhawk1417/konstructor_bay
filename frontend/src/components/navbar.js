@@ -3,6 +3,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { BsCart4 } from "react-icons/bs";
+import { Button } from "@nextui-org/react";
 /*
  * To avoid writing large code in one function.
  * It helps to split them like below
@@ -17,6 +18,10 @@ function ProfileDropDown() {
       13,
       document.cookie.length,
     );
+    //TODO: Solve cookie issue
+    console.log(document.cookie.includes(""));
+    console.log(document.cookie);
+    console.log(strippedCookie);
     if (strippedCookie) {
       setCookie(true);
     } else {
@@ -24,7 +29,7 @@ function ProfileDropDown() {
     }
   }, []);
   return (
-    <div className="dropdown dropdown-end flex-[1] flex justify-end pr-4">
+    <div className="dropdown dropdown-end flex-[0.5] flex justify-end pr-4">
       <label tabIndex={0} className="btn btn-ghost btn-circle ">
         <div className="w-10 rounded-full flex justify-center items-center">
           User
@@ -75,15 +80,30 @@ function ProfileDropDown() {
 }
 
 export default function NavBar() {
+  const [query, setQuery] = useState("");
   return (
     <div className="navbar sticky top-0 z-10 bg-slate-700">
       <div className="flex-[0.5]">Konstructor Bay</div>
-      <div className="flex-1 gap-2">
-        <div className="form-control flex-1">
-          <input type="text" className="input input-bordered w-24 md:w-auto" />
-        </div>
-        <ProfileDropDown />
-      </div>
+      <form
+        className="form-control flex-[0.5] flex flex-row "
+        action={async (formData) => {
+          //NOTE: Empty Space
+        }}
+      >
+        <input
+          type="text"
+          className="input input-bordered w-full md:w-auto"
+          name="product_search"
+          onChange={(e) => {
+            setQuery(e.target.value);
+          }}
+        />
+        <span className="ml-2 mr-2" />
+        <Link href={`/search/${query}`}>
+          <Button type="button">Search</Button>
+        </Link>
+      </form>
+      <ProfileDropDown />
     </div>
   );
 }
