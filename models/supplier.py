@@ -16,6 +16,7 @@ class Supplier(Base, BaseModel):
     delivery = Column(Boolean, nullable=True)
     #user = relationship("User", backref="supplier")
     #inbox = relationship("Inbox", backref="supplier")
+    supplier_name = Column(String(256), nullable=True) 
     inbox_id = Column(String(256), ForeignKey('inbox.id'), nullable=True)
     user_id = Column(String(256), ForeignKey('user.id'), nullable=True)
     supplier_user = relationship("User", 
