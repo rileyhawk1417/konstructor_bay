@@ -7,11 +7,11 @@ from models.cart import Cart
 
 class Cart_manager:
     @staticmethod
-    def create_Cart(user_id, product_id):
+    def create_Cart(user_id):
         """
         creating a new cart
         """
-        cart = Cart(user_id=user_id, product_id=product_id)
+        cart = Cart(user_id=user_id)
         storage.new(cart)
         storage.save()
         return cart
@@ -34,6 +34,8 @@ class Cart_manager:
             cart.product_id.append(product_id)
             storage.save()
             return cart
+        else:
+            return "product is already in cart"
 
     @staticmethod
     def delete_product(cart_id, product_id):
@@ -45,7 +47,7 @@ class Cart_manager:
         if product_id in Cart.product_id:
             storage.delete(product_id)
             storage.save()
-            return cart
+            return None
         
     @staticmethod
     def delete_cart(cart_id):

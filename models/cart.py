@@ -12,7 +12,7 @@ class Cart(Base, BaseModel):
     """
     __tablename__ = 'cart'
     user_id = Column(String(100), ForeignKey('user.id'), nullable=True)
-    product_id = Column(String(100), ForeignKey('products.id'), nullable=False)
+    product_id = Column(String(100), ForeignKey('products.id'), nullable=True)
     user = relationship('User', backref='cart')
     product = relationship('Product', backref='cart')
     #number of items in the cart
