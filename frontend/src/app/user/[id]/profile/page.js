@@ -4,9 +4,12 @@ import {
   generatePrice,
   priceFormatter,
 } from "@/app/tools";
-import Link from "next/link";
-import { Button } from "@nextui-org/react";
 
+async function fetchUser(id) {
+  const data = await fetch(`http://localhost:5000/api/auth/fetch_user/${id}`);
+  let username = await data.json();
+  return username.username;
+}
 function transactionHistory() {
   const day = new Date();
   return new Array(50).fill(null).map(() => ({
@@ -18,8 +21,9 @@ function transactionHistory() {
   }));
 }
 
-export default function Home() {
+export default async function Page(props) {
   const data = transactionHistory();
+  const uname = fetchUser(props.params.id);
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <div>
@@ -30,7 +34,13 @@ export default function Home() {
           <div className="rounded-full h-16 w-16 bg-slate-700 flex items-center justify-center">
             Profile
           </div>
-          <div>Username</div>
+          <div>{uname}</div>
+          <a
+            href={`http://localhost:3000/user/${props.params.id}/register`}
+            className="link cursor-pointer"
+          >
+            Register as supplier
+          </a>
         </div>
         <div
           id="stats"
