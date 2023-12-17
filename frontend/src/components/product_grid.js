@@ -1,4 +1,5 @@
-import { nanoid } from "nanoid";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -38,7 +39,32 @@ export function ProductCard(props) {
           <div className="card-actions items-center justify-evenly">
             <p className="card-title text-2xl">${props.itemPrice}</p>
             <Link href="#">
-              <button className="btn btn-primary">Buy Now</button>
+              {props.isCart ? (
+                <button
+                  className="btn btn-error text-white"
+                  onClick={async () => {
+                    await fetch(
+                      "http://localhost:5000/api/cart/remove_product",
+                      {
+                        method: "POST",
+                        mode: "cors",
+                        headers: {
+                          Accept: "application/json",
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          cart_id: props.cartID,
+                          product_id: props.itemID,
+                        }),
+                      },
+                    );
+                  }}
+                >
+                  Remove From Cart
+                </button>
+              ) : (
+                <button className="btn btn-primary">Buy Now</button>
+              )}
             </Link>
           </div>
         </div>
@@ -60,6 +86,8 @@ export default function ProductGrid(props) {
           quantity={item.quantity}
           supplierName={item.supplier_name}
           itemPrice={item.price}
+          isCart={props.isCart}
+          cartID={props.cardID}
         />
       ))}
     </div>

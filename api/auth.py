@@ -73,8 +73,6 @@ def fetch_supplier_id(id):
     """
     found = False
     existing_user = storage.new_get(Supplier, user_id=id)
-    print(id)
-    print(existing_user)
     user_data = existing_user
     if existing_user:
         user_data = existing_user

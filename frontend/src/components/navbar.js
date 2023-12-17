@@ -10,18 +10,27 @@ import { Button } from "@nextui-org/react";
  * The Profile button is separate and can easily be included
  * in the main function
  */
+//TODO: Cookie Function
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
 function ProfileDropDown() {
   const [cookie, setCookie] = useState(false);
+  const [uid, setUid] = useState(null);
   useEffect(() => {
     const strippedCookie = document.cookie.substring(
       13,
       document.cookie.length,
     );
     //TODO: Solve cookie issue
-    console.log(document.cookie.includes(""));
-    console.log(document.cookie);
-    console.log(strippedCookie);
+    let s = document.cookie.indexOf("user_id");
+    let e = document.cookie.substring(s + 8, document.cookie.length);
+    setUid(e);
+
     if (strippedCookie) {
       setCookie(true);
     } else {
@@ -41,14 +50,18 @@ function ProfileDropDown() {
       >
         <li>
           {cookie ? (
-            <Link href="/usr/1/profile" replace className="justify-between">
+            <Link
+              href={`/user/${uid}/profile`}
+              replace
+              className="justify-between"
+            >
               Profile
             </Link>
           ) : null}
         </li>
         <li>
           <Link
-            href="/cart"
+            href={`/cart/${uid}/`}
             className="flex flex-row items-center justify-between"
           >
             <span>Cart</span>
@@ -83,7 +96,9 @@ export default function NavBar() {
   const [query, setQuery] = useState("");
   return (
     <div className="navbar sticky top-0 z-10 bg-slate-700">
-      <div className="flex-[0.5]">Konstructor Bay</div>
+      <Link href="/" className="flex-[0.5]">
+        Konstructor Bay
+      </Link>
       <form
         className="form-control flex-[0.5] flex flex-row "
         action={async (formData) => {

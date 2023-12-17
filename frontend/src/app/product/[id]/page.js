@@ -9,7 +9,11 @@ export default async function Page(props) {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-evenly p-24">
-      <ProductView itemName={res.product_name} itemDesc={res.description} />
+      <ProductView
+        itemId={props.params.id}
+        itemName={res.product_name}
+        itemDesc={res.description}
+      />
     </div>
   );
 }

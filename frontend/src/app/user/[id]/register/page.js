@@ -1,9 +1,7 @@
 import RegisterSupplier from "@/components/register_supplier";
 
 async function fetchUserData(id) {
-  let data = await fetch(`http://localhost:5000/api/auth/fetch_user/${id}`, {
-    method: "POST",
-  }).catch((e) => console.log(e));
+  let data = await fetch(`http://localhost:5000/api/auth/fetch_user/${id}`);
   return data.json();
 }
 

@@ -3,19 +3,20 @@
 creating shopping chart table
 """
 from sqlalchemy import Column, String, Integer, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import Mapped, relationship
 from models.base_model import BaseModel, Base
+
 
 class Cart(Base, BaseModel):
     """
     cart
     """
-    __tablename__ = 'cart'
-    user_id = Column(String(100), ForeignKey('user.id'), nullable=True)
-    product_id = Column(String(100), ForeignKey('products.id'), nullable=True)
-    user = relationship('User', backref='cart')
-    product = relationship('Product', backref='cart')
-    #number of items in the cart
-    #total price for all the items
-    #when cart is clcked show all products
-    
+
+    __tablename__ = "cart"
+    user_id = Column(String(100), ForeignKey("user.id"), nullable=True)
+    product_id = Column(String(100), ForeignKey("products.id"), nullable=True)
+    user = relationship("User", backref="cart")
+    product = relationship("Product", backref="cart")
+    # number of items in the cart
+    # total price for all the items
+    # when cart is clcked show all products
