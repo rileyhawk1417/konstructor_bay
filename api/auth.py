@@ -27,19 +27,21 @@ def register_user():
     existing_user = storage.new_get(User, username=user_name)
     if existing_user:
         if existing_user.username == user_name:
-            return jsonify("user already exists"), 409
+            return jsonify({"message": "user already exists"}), 409
 
     new_user = User_manager.create_user(
         first_name, second_name, user_name, email, password
     )
 
     if new_user:
-        return jsonify("new user  added successfully"), 201
+        return jsonify(
+            {"user_id": new_user.id, "message": "new user added successfully"}
+        ), 201
     else:
-        return jsonify("Unable to add user"), 500
+        return jsonify({"message": "Unable to add user, try again later"}), 500
 
 
-@auth_bp.route("/fetch_user/<id>", methods=["POST"], strict_slashes=False)
+@auth_bp.route("/fetch_user/<id>", methods=["GET"], strict_slashes=False)
 def fetch_user(id):
     """
     fetch a user

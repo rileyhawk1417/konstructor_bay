@@ -34,24 +34,6 @@ def add_user():
         return jsonify("Unable to add user"), 500
 
 
-@users_bp.route("/signin", methods=["GET"], strict_slashes=False)
-def get_user():
-    """
-    adding a user to the site
-    """
-    data = request.get_json()
-
-    email = data.get("email")
-    password = data.get("password")
-    user = User_manager()
-    check_user = user.check_user(email, password)
-
-    if check_user:
-        return jsonify("Found user"), 201
-    else:
-        return jsonify("User not found"), 500
-
-
 @users_bp.route("/delete_user/<user_id>", methods=["DELETE"], strict_slashes=False)
 def delete_user(user_id):
     """
