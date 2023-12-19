@@ -12,6 +12,9 @@ from models import storage
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 import uuid
+from flask import request, jsonify
+import os
+import random
 
 
 class User_manager:
@@ -21,6 +24,28 @@ class User_manager:
 
     def __init__(self):
         pass
+
+    @staticmethod
+    def upload_profile_pic(user_id):
+        """
+        uploading profile pic
+        """
+        user = storage.new_get(User, id=user_id)
+        if user:
+            profile_pic = request.files.get('profilePic')
+            if profile_pic:
+                upload_folder = './images/user_profile'
+                os.makedirs(upload_folder, exist_ok=True)
+
+                profile_extension = os.path.splitext(profile_pic.filename)[1]
+                profile_pic_name = f"{user_id}{profile_extension}"
+
+                profile_pic.save(os.path.join(upload_folder, profile_pic_name))
+                return "Image uploaded successfully"
+            else:
+                return "Something went wrong when getting the pic"
+        else:
+            return "Bad <id>, User not found"
 
     @staticmethod
     def create_user(first_name, sec_name, username, email, password):

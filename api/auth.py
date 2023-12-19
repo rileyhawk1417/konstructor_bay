@@ -2,13 +2,29 @@
 """
 registration and login api endpoint
 """
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, Flask
 from models.engine.user_manager import User_manager
 from models.user import User
 from models.supplier import Supplier
 from models import storage
+import random
+import os
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
+
+
+
+@auth_bp.route('/upload/<user_id>', methods=['POST'], strict_slashes=False)
+def upload_profile_pic(user_id):
+    """
+    uploading profile pic
+    """
+    
+    um = User_manager()
+    success = um.upload_profile_pic(user_id)
+    if success:
+        return jsonify("Image uploaded successfully")
+    
 
 
 @auth_bp.route("/register", methods=["POST"], strict_slashes=False)
@@ -23,6 +39,8 @@ def register_user():
     user_name = data.get("username")
     email = data.get("email")
     password = data.get("password")
+    
+
     # create_user(<firstName>, <secName>, user_name, email, password)
     existing_user = storage.new_get(User, username=user_name)
     if existing_user:

@@ -47,6 +47,7 @@ def get_product(id):
 @products_bp.route("/products", methods=["POST"], strict_slashes=False)
 def post_product():
     """
+    
     posts a product into the db
     """
 
