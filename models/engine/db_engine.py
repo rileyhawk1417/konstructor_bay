@@ -16,11 +16,15 @@ import sqlalchemy
 import models
 
 classes = {
-    "User": User, "Order": Order,
-    "Location": Location, "Cart": Cart,
-    "Product": Product, "Supplier": Supplier,
-    "Inbox": Inbox
+    "User": User,
+    "Order": Order,
+    "Location": Location,
+    "Cart": Cart,
+    "Product": Product,
+    "Supplier": Supplier,
+    "Inbox": Inbox,
 }
+
 
 class Db_storage:
     """
@@ -35,23 +39,24 @@ class Db_storage:
         instantiate db objects
         """
 
-        username = 'ks_developers'
-        password = ''
-        host = 'localhost'
-        database = 'ks_dev_db'
-        self.__engine = create_engine(f"mysql+mysqldb://{username}:{password}@{host}/{database}")
+        username = "ks_developers"
+        password = ""
+        host = "localhost"
+        database = "ks_dev_db"
+        self.__engine = create_engine(
+            f"mysql+mysqldb://{username}:{password}@{host}/{database}"
+        )
 
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
 
     def reload(self):
-        """ reload data from our db
-        """
+        """reload data from our db"""
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session
-    
+
     def save(self):
         """
         saves all changes of the current db session
@@ -60,7 +65,7 @@ class Db_storage:
 
     def delete(self, obj=None):
         """
-        delete obj from current db session 
+        delete obj from current db session
         """
         if obj:
             self.__session.delete(obj)
@@ -105,7 +110,6 @@ class Db_storage:
                         result[keyName] = obj
         return result
 
-
     def count(self, cls=None):
         """
         count number of objects in db
@@ -119,10 +123,10 @@ class Db_storage:
         else:
             count = len(models.storage.all(cls).values())
         return count
-    
+
     def get(self, cls, id):
         """
-        #returns the obj based on the class name and its id 
+        #returns the obj based on the class name and its id
         #If not it returns None
         """
         if cls not in classes:
@@ -133,17 +137,20 @@ class Db_storage:
                 return value
 
         return None
-        
-    def new_get(self, cls, id=None, username=None, supplier_name=None):
+
+    def new_get(self, cls, id=None, username=None, supplier_name=None, user_id=None):
         if id is not None:
             return self.__session.query(cls).get(id)
         elif username is not None:
             return self.__session.query(cls).filter_by(username=username).first()
         elif supplier_name is not None:
-            return self.__session.query(cls).filter_by(supplier_name=supplier_name).first()
+            return (
+                self.__session.query(cls).filter_by(supplier_name=supplier_name).first()
+            )
+        elif user_id is not None and cls is Supplier:
+            return self.__session.query(cls).filter_by(user_id=user_id).first()
         else:
             return self.__session.query(cls).all() if id is None else None
-
 
     def close(self):
         """
@@ -160,9 +167,10 @@ class Db_storage:
     def update_data(self, obj, **kwargs):
         """Update data in tables"""
         for key, val in kwargs.items():
-            if key != 'id' and key != 'created_at' and key != 'updated_at':
+            if key != "id" and key != "created_at" and key != "updated_at":
                 setattr(obj, key, val)
         self.save()
+
     def select_data(self, cls):
         """Select data from tables"""
         return self.__session.query(cls).all()
@@ -173,7 +181,7 @@ class Db_storage:
         self.new(obj)
         self.save()
         return obj
-    
+
     def delete_data(self, obj):
         """Delete data from tables"""
         self.delete(obj)

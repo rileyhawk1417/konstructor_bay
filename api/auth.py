@@ -13,18 +13,16 @@ import os
 auth_bp = Blueprint("auth", __name__, url_prefix="/api/auth")
 
 
-
-@auth_bp.route('/upload/<user_id>', methods=['POST'], strict_slashes=False)
+@auth_bp.route("/upload/<user_id>", methods=["POST"], strict_slashes=False)
 def upload_profile_pic(user_id):
     """
     uploading profile pic
     """
-    
+
     um = User_manager()
     success = um.upload_profile_pic(user_id)
     if success:
         return jsonify(f"{success}")
-    
 
 
 @auth_bp.route("/register", methods=["POST"], strict_slashes=False)
@@ -39,7 +37,6 @@ def register_user():
     user_name = data.get("username")
     email = data.get("email")
     password = data.get("password")
-    
 
     # create_user(<firstName>, <secName>, user_name, email, password)
     existing_user = storage.new_get(User, username=user_name)
@@ -82,15 +79,13 @@ def fetch_user(id):
         return jsonify("User not found"), 401
 
 
-@auth_bp.route("/fetch_supplier_id/<id>", methods=["POST"], strict_slashes=False)
+@auth_bp.route("/fetch_supplier_id/<id>", methods=["GET"], strict_slashes=False)
 def fetch_supplier_id(id):
     """
     fetch a user
     """
     found = False
     existing_user = storage.new_get(Supplier, user_id=id)
-    print(id)
-    print(existing_user)
     user_data = existing_user
     if existing_user:
         user_data = existing_user
@@ -100,6 +95,34 @@ def fetch_supplier_id(id):
             {
                 "supplier_id": user_data.id,
                 "business_name": user_data.business_name,
+                "delivery": user_data.delivery,
+                "phone_num": user_data.phone_num,
+                "email": user_data.email,
+            }
+        ), 200
+    else:
+        return jsonify("User not found"), 401
+
+
+@auth_bp.route("/fetch_supplier_info/<id>", methods=["GET"], strict_slashes=False)
+def fetch_supplier_info(id):
+    """
+    fetch a user
+    """
+    found = False
+    existing_user = storage.new_get(Supplier, id)
+    user_data = existing_user
+    if existing_user:
+        user_data = existing_user
+        found = True
+    if found:
+        return jsonify(
+            {
+                "supplier_id": user_data.id,
+                "business_name": user_data.business_name,
+                "delivery": user_data.delivery,
+                "phone_num": user_data.phone_num,
+                "email": user_data.email,
             }
         ), 200
     else:

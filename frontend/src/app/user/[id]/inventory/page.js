@@ -31,9 +31,6 @@ export default async function Home(props) {
 
   let fetchSupplierID = await fetch(
     `http://localhost:5000/api/auth/fetch_supplier_id/${props.params.id}`,
-    {
-      method: "POST",
-    },
   ).then((k) => k.json());
 
   return (
