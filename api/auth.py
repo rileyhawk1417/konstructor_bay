@@ -23,7 +23,7 @@ def upload_profile_pic(user_id):
     um = User_manager()
     success = um.upload_profile_pic(user_id)
     if success:
-        return jsonify("Image uploaded successfully")
+        return jsonify(f"{success}")
     
 
 
