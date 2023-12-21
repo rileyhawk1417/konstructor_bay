@@ -46,6 +46,7 @@ function ProfileDropDown() {
             </Link>
           ) : null}
         </li>
+        {/*
         <li>
           <Link
             href="/cart"
@@ -55,6 +56,7 @@ function ProfileDropDown() {
             <BsCart4 size={24} />
           </Link>
         </li>
+        */}
         <li>
           <Link href="#">Settings</Link>
         </li>
