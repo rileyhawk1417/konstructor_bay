@@ -85,7 +85,9 @@ export default function NavBar() {
   const [query, setQuery] = useState("");
   return (
     <div className="navbar sticky top-0 z-10 bg-slate-700">
-      <div className="flex-[0.5]">Konstructor Bay</div>
+      <Link href="/" className="flex-[0.5]">
+        Konstructor Bay
+      </Link>
       <form
         className="form-control flex-[0.5] flex flex-row "
         action={async (formData) => {
