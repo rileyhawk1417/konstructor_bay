@@ -4,6 +4,8 @@ cart manager crud opreations
 """
 from models import storage
 from models.cart import Cart
+from models.product import Product
+import sqlalchemy
 
 class Cart_manager:
     @staticmethod
@@ -29,14 +31,19 @@ class Cart_manager:
         """
         add product to cart
         """
-        cart = storage.new_get(Cart, cart_id)
-        if product_id not in cart.product_id:
-            cart.product_id.append(product_id)
-            storage.save()
-            return cart
-        else:
-            return "product is already in cart"
+        cart = storage.new_get(Cart, id=cart_id)
+        product = storage.new_get(Product, id=product_id)
 
+        if cart and product:
+            # Check if the product is already in the cart's products
+            if product in cart.products:
+                return "Product is already in the cart"
+            else:
+                cart.products.append(product)
+                storage.save()
+                return cart
+        else:
+            return "Cart or product not found"
     @staticmethod
     def delete_product(cart_id, product_id):
         """

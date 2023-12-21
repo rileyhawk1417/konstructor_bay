@@ -26,7 +26,7 @@ def add_product(product_id, cart_id):
     
     res = cm.add_product(cart_id, product_id)
     if res:
-        return jsonify("product added successfully"), 201
+        return jsonify(f"{res}"), 201
     else:
         return jsonify("unable to add product to cart"), 500
 
