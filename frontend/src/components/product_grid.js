@@ -37,7 +37,7 @@ export function ProductCard(props) {
           <p>Supplier {props.supplierName}</p>
           <div className="card-actions items-center justify-evenly">
             <p className="card-title text-2xl">${props.itemPrice}</p>
-            <Link href="#">
+            <Link href={`/product/${props.itemID}`}>
               <button className="btn btn-primary">Buy Now</button>
             </Link>
           </div>
