@@ -6,7 +6,6 @@ from models.base_model import BaseModel, Base
 from models.user import User
 from models.supplier import Supplier
 from models.product import Product
-from models.inbox import Inbox
 from models.location import Location
 from models import storage
 from sqlalchemy.orm import sessionmaker

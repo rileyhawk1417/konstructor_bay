@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 from models.product import Product
-from models.cart import Cart
 from models.location import Location
 from models.engine.db_engine import Db_storage
 from uuid import uuid4

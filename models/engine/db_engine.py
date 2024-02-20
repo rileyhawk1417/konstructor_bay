@@ -3,12 +3,12 @@
 connecting to the db
 """
 from models.supplier import Supplier
-from models.inbox import Inbox
+
 from models.base_model import Base, BaseModel
 from models.user import User
 from models.orders import Order
 from models.location import Location
-from models.cart import Cart
+
 from models.product import Product
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
@@ -19,10 +19,8 @@ classes = {
     "User": User,
     "Order": Order,
     "Location": Location,
-    "Cart": Cart,
     "Product": Product,
     "Supplier": Supplier,
-    "Inbox": Inbox,
 }
 
 

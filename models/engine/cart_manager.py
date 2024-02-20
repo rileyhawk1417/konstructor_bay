@@ -2,69 +2,28 @@
 """
 cart manager crud opreations
 """
+import sys 
+sys.path.append('/home/user/sandbox/project/konstructor_bay')
 from models import storage
-from models.cart import Cart
 from models.product import Product
-import sqlalchemy
 
-class Cart_manager:
-    @staticmethod
-    def create_Cart(user_id):
-        """
-        creating a new cart
-        """
-        cart = Cart(user_id=user_id)
-        storage.new(cart)
-        storage.save()
-        return cart
+class Cart():
+    def __init__(self):
+        self.products_cart = {}
 
-    @staticmethod
-    def read_Cart(cart_id):
-        """
-        listing cart content
-        """
-
-        return storage.new_get(Cart, cart_id)
-
-    @staticmethod
-    def add_product(cart_id, product_id):
-        """
-        add product to cart
-        """
-        cart = storage.new_get(Cart, id=cart_id)
-        product = storage.new_get(Product, id=product_id)
-
-        if cart and product:
-            # Check if the product is already in the cart's products
-            if product in cart.products:
-                return "Product is already in the cart"
-            else:
-                cart.products.append(product)
-                storage.save()
-                return cart
+    def add_product(self, product_id: str, quantity: int) -> None:
+        existing_product = storage.new_get(Product, product_id)
+        name = existing_product.product_name
+        if existing_product is None:
+            return 'Product does not exist'
+        
+        if existing_product.id in self.products_cart:
+            self.products_cart[product_id]['quantity'] += quantity
         else:
-            return "Cart or product not found"
-    @staticmethod
-    def delete_product(cart_id, product_id):
-        """
-        delete product in cart
-        """
-
-        product = storage.new_get(Cart, product_id)
-        if product_id in Cart.product_id:
-            storage.delete(product_id)
-            storage.save()
-            return None
-        
-    @staticmethod
-    def delete_cart(cart_id):
-        """
-        delete the cart
-        """
-        cart = storage.new_get(Cart, cart_id)
-        storage.delete(cart)
-        storage.save()
-        return None
-
-
-        
+            self.products_cart[product_id] = {'name': name, 'quantity': quantity}
+        print(self.products_cart)
+            
+if __name__ == '__main__':
+    c = Cart()
+    c.add_product('2bfb4f40-8ef8-42b2-9765-37786567cecb', 5)
+    c.add_product('2bfb4f40-8ef8-42b2-9765-37786567cecb', 3)
