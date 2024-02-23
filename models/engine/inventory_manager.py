@@ -67,36 +67,3 @@ class Inventory_manager:
         else:
             print("The product is not available")
 
-    def total_products_in_cart(self, cart_id):
-        """
-        getting total number of product in a cart
-        """
-        cart = self.db.new_get(Cart, cart_id)
-        if cart:
-            total = len(cart)
-            return total
-        else:
-            print("Cart doesn't exist: specify a valid id")
-
-    def list_products_in_cart(self, cart_id):
-        """
-        list all products in a cart
-        """
-
-        cart = self.db.new_get(Cart, cart_id)
-        if cart:
-            for product in cart:
-                return product.product_name
-        else:
-            print("Cart doesn't exist")
-
-    def total_price_in_cart(self, cart_id):
-        cart = self.db.new_get(Cart, cart_id)
-        if cart:
-            price = 0
-            for product in cart:
-                price += product.product_name
-            return price
-
-        else:
-            print("cart doesn't exist.\n\t CART ID SPECIFIED DOES NOT EXIST")
