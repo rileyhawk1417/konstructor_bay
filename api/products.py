@@ -115,7 +115,7 @@ def delete_product(id):
 
 @products_bp.route('/product_img/<id>', methods=['POST'])
 def upload_product_img(id):
-    storage.add_to_session(supplier_id='5863b2f3-67d0-4382-a397-d6091205aa3d')
+    storage.add_to_session(supplier_id='5863b2f3-67d0-4382-a397-d6091205aa3d') #hard coded for testing purpose, will have to create a session feature when user login.
     if 'file' not in request.files:
         flash('no file part')
         return redirect(request.url)
