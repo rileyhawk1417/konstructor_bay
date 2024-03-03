@@ -3,7 +3,7 @@
 connecting to the db
 """
 from models.supplier import Supplier
-
+from flask import session
 from models.base_model import Base, BaseModel
 from models.user import User
 from models.orders import Order
@@ -184,3 +184,41 @@ class Db_storage:
         """Delete data from tables"""
         self.delete(obj)
         self.save()
+
+    def add_to_session(self, **kwargs):
+        for key, value in kwargs.items():
+            session[key] = value
+
+if __name__ == "__main__":
+    storage = Db_storage()
+    storage.reload()
+
+    #create user
+    storage.create_data(
+        User,
+        firstName='moses',
+        sec_name='Gitonga',
+        username='user1',
+        email='examlple@gmail.com',
+        password='213c',
+        )
+
+    #create product
+    storage.create_data(
+        Product,
+        product_name='mobile phone',
+        description='good working phone',
+        quantity=3,
+        price=234,
+        img_filename='',
+        
+        )
+
+    #create supplier
+    storage.create_data(
+        Supplier,
+        business_name='X electrnics',
+        email='x@example.com',
+        phone_num='+2453223022',
+        delivery=True
+        )

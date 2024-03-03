@@ -2,14 +2,27 @@
 """
 endpoints for products
 """
-from flask import Blueprint, jsonify, request
+import sys
+sys.path.append('/home/user/sandbox/project/konstructor_bay')
+from flask import Blueprint, jsonify, request, redirect
 from models.engine.inventory_manager import Inventory_manager
 from models.product import Product
+from models.user import User
+from models.supplier import Supplier
+from models.engine.db_engine import Db_storage
+from werkzeug.utils import secure_filename
+from flask import session, flash
+import os
+
 
 # from models.base_model import to_dict
 
-products_bp = Blueprint("products", __name__, url_prefix="/api")
+storage = Db_storage()
 
+products_bp = Blueprint("products", __name__, url_prefix="/api")
+UPLOAD_FOLDER = 'uploads'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 @products_bp.route("/products", methods=["GET"], strict_slashes=False)
 def get_products():
@@ -98,6 +111,31 @@ def delete_product(id):
     im = Inventory_manager()
     product = im.delete_product(id)
     return jsonify(product), 200
+
+
+@products_bp.route('/product_img/<id>', methods=['POST'])
+def upload_product_img(id):
+    storage.add_to_session(supplier_id='5863b2f3-67d0-4382-a397-d6091205aa3d')
+    if 'file' not in request.files:
+        flash('no file part')
+        return redirect(request.url)
+    
+    file = request.files['file']
+    if file.filename == '':
+        flush('no selected file')
+        return redirect(request.url)
+
+    if file:
+        filename = secure_filename(file.filename)
+        if session.get('supplier_id'):
+            supplier = storage.new_get(Supplier, id=session['supplier_id'])
+            image = Product(img_filename=filename, supplier=supplier)
+            storage.create_data(Product, img_filename=image)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            return redirect('/')
+        else:
+            flash('supplier session does not exist')
+            return jsonify({"error": "session not found"})
 
 
 if __name__ == "__main__":

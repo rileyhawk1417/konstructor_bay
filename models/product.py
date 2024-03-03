@@ -9,10 +9,10 @@ from sqlalchemy.orm import relationship
 class Product(Base, BaseModel):
     __tablename__ = "products"
     product_name = Column(String(239), nullable=True)
-    description = Column(String(350), nullable=False)
+    description = Column(String(350), nullable=True)
     quantity = Column(Integer, nullable=True)
     price = Column(Integer, nullable=True)
-    #img_filename = Column(String(256), nullable=True)
+    img_filename = Column(String(300), nullable=True)
     supplier_id = Column(String(256), ForeignKey('supplier.id'), nullable=True)
     location_id = Column(String(256), ForeignKey('location.id'), nullable=True)
     supplier = relationship("Supplier", backref="products")
@@ -30,5 +30,6 @@ class Product(Base, BaseModel):
             "price": product_instance.price,
             "supplier_id": product_instance.supplier_id,
             "supplier_name": product_instance.supplier.business_name if product_instance.supplier else None,
-            "location_id": product_instance.location_id
+            "location_id": product_instance.location_id,
+            "image_filename": product_instance.img_filename
         }

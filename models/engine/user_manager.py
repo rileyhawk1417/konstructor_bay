@@ -140,3 +140,4 @@ class User_manager:
         storage.delete(supplier)
         storage.save()
         return supplier
+

@@ -2,7 +2,9 @@
 """
 manage orders
 """
-from models.engine.cart_manager import Cart_manager
+import sys
+sys.path.append('/home/user/sandbox/project/konstructor_bay')
+from models.engine.cart_manager import Cart
 from flask import Blueprint
 
 orders_bp = Blueprint('orders', __name__, url_prefix='/api')
